@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Pipeline Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #e94560;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .card h2 {
+            color: #e94560;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .success { color: #4ade80; }
+        .warning { color: #fbbf24; }
+        .error { color: #f87171; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        th {
+            background: rgba(233, 69, 96, 0.2);
+            color: #e94560;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .badge-high { background: #dc2626; }
+        .badge-medium { background: #f59e0b; }
+        .badge-low { background: #3b82f6; }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 Security Pipeline Report</h1>
+        <p class="subtitle">Generated: 2026-01-07 17:04:43</p>
+        
+        <div class="card">
+            <h2>📊 Executive Summary</h2>
+            <table>
+                <tr>
+                    <th>Scan Type</th>
+                    <th>Tool</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>SAST (Static Analysis)</td>
+                    <td>Bandit</td>
+                    <td class="error">
+                        ❌ Failed
+                    </td>
+                </tr>
+                <tr>
+                    <td>DAST (Dynamic Analysis)</td>
+                    <td>OWASP ZAP</td>
+                    <td class="success">
+                        ✅ Completed
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="card">
+            <h2>🔍 SAST Results (Bandit)</h2>
+            ❌ Failed
+        </div>
+        
+        <div class="card">
+            <h2>🌐 DAST Results (OWASP ZAP)</h2>
+            
+        <p>✅ Scan completed. See detailed report for findings.</p>
+    
+        </div>
+        
+        <div class="card">
+            <h2>📁 Detailed Reports</h2>
+            <ul>
+                <li><a href="bandit_report.html" style="color: #e94560;">Bandit SAST Report (HTML)</a></li>
+                <li><a href="bandit_report.json" style="color: #e94560;">Bandit SAST Report (JSON)</a></li>
+                <li><a href="zap_report.html" style="color: #e94560;">OWASP ZAP DAST Report (HTML)</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Security Pipeline Demo - Bandit + OWASP ZAP</p>
+        </div>
+    </div>
+</body>
+</html>
+    

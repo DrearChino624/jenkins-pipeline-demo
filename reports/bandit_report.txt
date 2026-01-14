@@ -1,0 +1,109 @@
+Run started:2026-01-14 02:44:32.690947
+
+Test results:
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: app.py:10:0
+9	import os
+10	import subprocess
+11	import hashlib
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'admin123'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b105_hardcoded_password_string.html
+   Location: app.py:16:20
+15	# VULNERABILITY: Hardcoded credentials (Bandit B105, B106)
+16	DATABASE_PASSWORD = "admin123"
+17	SECRET_KEY = "super_secret_key_12345"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'super_secret_key_12345'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b105_hardcoded_password_string.html
+   Location: app.py:17:13
+16	DATABASE_PASSWORD = "admin123"
+17	SECRET_KEY = "super_secret_key_12345"
+18	API_KEY = "sk-1234567890abcdef"
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b608_hardcoded_sql_expressions.html
+   Location: app.py:111:14
+110	    # VULNERABLE: Direct string concatenation in SQL query
+111	    query = f"SELECT * FROM users WHERE id = {user_id}"
+112	    
+
+--------------------------------------------------
+>> Issue: [B602:subprocess_popen_with_shell_equals_true] subprocess call with shell=True identified, security issue.
+   Severity: High   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b602_subprocess_popen_with_shell_equals_true.html
+   Location: app.py:146:17
+145	        # Using shell=True with user input - dangerous!
+146	        result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, timeout=5)
+147	        output = result.decode('utf-8', errors='ignore')
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b324_hashlib.html
+   Location: app.py:191:13
+190	    # VULNERABLE: Using MD5 for password hashing
+191	    hashed = hashlib.md5(password.encode()).hexdigest()
+192	    
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak SHA1 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b324_hashlib.html
+   Location: app.py:194:18
+193	    # Also demonstrating SHA1 (also weak for passwords)
+194	    sha1_hashed = hashlib.sha1(password.encode()).hexdigest()
+195	    
+
+--------------------------------------------------
+>> Issue: [B201:flask_debug_true] A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.
+   Severity: High   Confidence: Medium
+   CWE: CWE-94 (https://cwe.mitre.org/data/definitions/94.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b201_flask_debug_true.html
+   Location: app.py:260:4
+259	    # VULNERABILITY: Debug mode enabled in production (Bandit B201)
+260	    app.run(host='0.0.0.0', port=5000, debug=True)
+
+--------------------------------------------------
+>> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-605 (https://cwe.mitre.org/data/definitions/605.html)
+   More Info: https://bandit.readthedocs.io/en/1.7.6/plugins/b104_hardcoded_bind_all_interfaces.html
+   Location: app.py:260:17
+259	    # VULNERABILITY: Debug mode enabled in production (Bandit B201)
+260	    app.run(host='0.0.0.0', port=5000, debug=True)
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 218
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 3
+		Medium: 2
+		High: 4
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 4
+		High: 4
+Files skipped (0):
