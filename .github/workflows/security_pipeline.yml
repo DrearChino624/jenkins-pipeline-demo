@@ -59,22 +59,27 @@ jobs:
       # ------------------------------------------------------------------
       # FASE 3: DAST (Dynamic Analysis with OWASP ZAP)
       # ------------------------------------------------------------------
-      - name: Run DAST Scan (OWASP ZAP)
-        uses: zaproxy/action-baseline@v0.11.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          target: 'http://localhost:5000'
-          # Guardar reporte en formato HTML
-          cmd_options: '-a' 
-          # Nota: Esta acción genera sus propios reportes y los sube a "issues" por defecto.
-          # También podemos configurarla para fallar el build si encuentra alertas graves.
+      - name: Run DAST Scan (OWASP ZAP) via Docker
+        run: |
+          echo "Running OWASP ZAP baseline via Docker..."
+          mkdir -p "$GITHUB_WORKSPACE/reports"
+          docker --version || true
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE/reports:/zap/wrk:rw" \
+            --add-host=host.docker.internal:host-gateway \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://host.docker.internal:5000 \
+            -r zap_report.html \
+            -J zap_report.json \
+            -I
         continue-on-error: true
 
       # ------------------------------------------------------------------
       # FASE 4: GUARDAR REPORTES (ARTIFACTS)
       # ------------------------------------------------------------------
       - name: Upload Security Reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always() # Ejecutar siempre, incluso si fallan los pasos anteriores
         with:
           name: security-scan-reports
